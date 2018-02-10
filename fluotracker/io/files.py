@@ -3,6 +3,7 @@ This module makes it easy to load / save files from the `data/` directory.
 
 In particular we add functions to load frames from a .tif movie
 """
+import os
 
 DATA = "/absolute/path/to/data/"  # specific to you!
 

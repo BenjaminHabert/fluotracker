@@ -7,12 +7,16 @@ TODO: add background info (lab, links to publications, etc.)
 
 # Setup
 
+## Python environment
+
 You should first make sure your Python environment is setup properly. The prefered method
 is to use [pyenv](https://github.com/pyenv/pyenv) and
-pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv).
+[pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv).
 However if your are confident in your environment setup you should be fine.
 
 The code is intended to be used in **Python 3**.
+
+## Downloading the repository
 
 ```
 $ git clone https://github.com/BenjaminHabert/fluotracker.git
@@ -39,6 +43,18 @@ $ jupyter notebook
 # open the file notebooks/2018-02-10_refactoring_code_as_functions.ipynb
 # run the notebook. If everything runs smoothly you should be all set!
 ```
+
+## Editor setup
+
+Use what you want as an editor. We suggest using [atom](https://atom.io/) with the following packages:
+    - linter-pep8
+    - python-indent
+    - kite plugin (requires installation of [kite](http://help.kite.com/article/53-quickstart)).
+    This provides code completion! You can configure kite itself to whitelist the repository
+    (which allows code inspection not only for basic python packages but also modules degined here)
+    - minimap
+
+Make sure to configure your editor to use **4-spaces indentation** and not tabs!
 
 # Conventions
 
