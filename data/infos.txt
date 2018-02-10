@@ -1,0 +1,3 @@
+The data folder is used to store input and output data.
+
+Only this file is commited, the rest of the folder should not be added to the repository!
