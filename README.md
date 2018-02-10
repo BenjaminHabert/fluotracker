@@ -46,13 +46,14 @@ $ jupyter notebook
 
 ## Editor setup
 
-Use what you want as an editor. We suggest using [atom](https://atom.io/) with the following packages:
-    - linter-pep8
-    - python-indent
-    - kite plugin (requires installation of [kite](http://help.kite.com/article/53-quickstart)).
-    This provides code completion! You can configure kite itself to whitelist the repository
-    (which allows code inspection not only for basic python packages but also modules degined here)
-    - minimap
+Use what you want as an editor. We suggest using [atom](https://atom.io/) with the following plugins:
+
+- linter-pep8
+- python-indent
+- kite plugin (requires installation of [kite](http://help.kite.com/article/53-quickstart)).
+This provides code completion! You can configure kite itself to whitelist the repository
+(which allows code inspection not only for basic python packages but also modules degined here)
+- minimap
 
 Make sure to configure your editor to use **4-spaces indentation** and not tabs!
 
