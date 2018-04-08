@@ -3,3 +3,4 @@ pandas
 trackpy
 pims
 imageio
+shapely
