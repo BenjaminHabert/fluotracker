@@ -1,2 +1,2 @@
-source .venv/bin/activate
+source venv-fluo/bin/activate
 export PYTHONPATH=$(pwd):$PYTHONPATH

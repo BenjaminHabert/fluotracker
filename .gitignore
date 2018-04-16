@@ -3,7 +3,6 @@ data/
 
 
 
-
 # FOLLOWING CONFIG IS GITHUB DEFAULT FOR PYTHON:
 
 
@@ -17,6 +16,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+venv-fluo
 env/
 build/
 develop-eggs/
