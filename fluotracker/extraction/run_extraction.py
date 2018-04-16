@@ -1,10 +1,11 @@
 from fluotracker.io import files
 
 import extract
+import filter
 
 
 def run():
-    """Run extraction of nanoparticle tracks from movies"""
+    """Run extraction of nanoparticle tracks from movies."""
     pass
     # List movies in data folder
 
@@ -21,32 +22,38 @@ def run():
     #   - (optional): save image with tracks overlay indicating valid / invalid choice (green / red)
 
 
-def extract_tracks(movie_to_extract, output_folder):
+def extract_tracks():
+    movie_to_extract = "raw/movie8.tif"
+
     # Loading
-    print("Loading movie: ")
-    print(movie_to_extract)
-    frames, movie_name = files.load_movie_frames_and_name(movie_to_extract)
+    print("Loading movie: " + movie_to_extract)
+    frames = files.load_movie_frames(movie_to_extract)
+    print("What was loaded:")
+    print(frames)
 
     # Extracting
     tracks = extract.extract_tracks_from_frames(frames)
-    tracks['movie'] = movie_name
+    tracks['movie'] = 'movie8'
     print('Done extracting from movie. tracks is like this:')
     print(tracks.head())
 
     # Saving result
-    output_filename = movie_name + "_extracted.csv"
-    print("Saving tracks to file: ")
-    print(output_filename)
-    files.save_dataframe(tracks, output_filename, folder=output_folder)
+    output_filename = "extracted/movie8.csv"
+    print("Saving tracks to file: " + output_filename)
+    files.save_dataframe(tracks, output_filename)
+
+    # Applying filters
+    # Le fait de sauvegarder puis charger les données peut paraître un peu idiot
+    # mais l'intérêt c'est qu'ensuite on peut ne réaliser qu'une seule étape sans
+    # redémarrer le projet depuis le début.
+    extracted = files.load_dataframe(output_filename)
+    filtered = filter.remove_short_tracks(extracted, threshold_seconds=5)
+    files.save_dataframe(filtered, 'filtered/movie8.csv')
 
 
 if __name__ == "__main__":
     print('Lauching main script to extract particles tracks from movies.')
-
-    movie_to_extract = "raw/movie8.tif"
-    output_folder = "extracted"
-    extract_tracks(movie_to_extract, output_folder)
-
+    extract_tracks()
     print('Main extraction script completed')
-
-    # run()
+    print('Content of data/ is now like this:')
+    files.inventory()
