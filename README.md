@@ -114,7 +114,8 @@ PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
 export PATH
 ```
 
-Et si on vérifie la version de python dont on dispose:
+Et si on vérifie la version de python dont on dispose (après avoir lancer un nouveau
+terminal à nouveau):
 
 ```
 $ which python3
@@ -159,8 +160,9 @@ des librairies.
 
 ### 2.3 Activer son environnement
 
-Dans un nouveau terminal, il faut dire explicitement qu'on veut utiliser le nouveal environment
-qu'on vient de créer. Il faut répéter cette étape à chaque fois qu'on revient sur le projet.
+Il faut dire explicitement qu'on veut utiliser le nouvel environment
+qu'on vient de créer. Il faut répéter cette étape à chaque fois qu'on lance un nouveau
+terminal si on veut travailler sur le projet.
 
 ```
 $ . activate.sh
@@ -223,7 +225,7 @@ $ . activate.sh
 (venv-fluo)$ python fluotracker/extraction/run_extraction.py
 ```
 
-Ce script principal a pour vocation de rester simple. Il faut appel à d'autres fonctions définies
+Ce script principal a pour vocation de rester simple. Il fait appel à d'autres fonctions définies
 ailleurs dans le projet.
 
 Par ailleurs, lorsqu'on est en train de tester des fonctions, on peut utiliser les **notebooks**.
