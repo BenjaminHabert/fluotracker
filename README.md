@@ -49,7 +49,7 @@ $ which python3
 
 #### 2.1.1 J'ai anaconda et je ne veux plus l'utiliser!
 
-Quand on tappe `$ python3` dans un terminal l'OS va regarder dans plusieurs endroits pour vérifier
+Quand on tape `$ python3` dans un terminal l'OS va regarder dans plusieurs endroits pour vérifier
 si l'exécutable existe. On peut modifier les chemins d'accès en regardant le fichier de configuration
 `.bash_profile` (parfois `.profile`, `.bashrc`, etc) qui est situé dans votre `home`.
 
@@ -78,11 +78,11 @@ export PATH="/Users/benjaminhabert/anaconda/bin:$PATH"
 echo "Reading config from ~/.bash_profile"
 
 # Souvent je me rajoute aussi un truc pratique pour passer rapidement dans un dossier
-# sur lequel je travail:
+# sur lequel je travaille:
 alias fluo="cd /Users/benjaminhabert/Documents/FluotrackerProject/fluotracker/"
 ```
 
-Après avoir **sauvegardé et fermé** le fichier, pour que les modifications soient prisent en compte il faut
+Après avoir **sauvegardé et fermé** le fichier, pour que les modifications soient prises en compte il faut
 **démarrer un nouveau terminal**
 
 ```
@@ -154,7 +154,7 @@ $ python3 -m venv venv-fluo
 $ ls venv-fluo
 ```
 
-Cette commande créé un dossier `venv-fluo` qui contient une installation complète de python.
+Cette commande crée un dossier `venv-fluo` qui contient une installation complète de python.
 C'est cette version qu'on va utiliser pour lancer les codes et c'est ici qu'on va installer
 des librairies.
 
@@ -176,7 +176,7 @@ $ source venv-fluo/bin/activate
 /Users/benjaminhabert/Documents/FluotrackerProject/fluotracker/venv-fluo/bin/python
 ```
 
-Quand on tappe `python` ça pointe donc maintenant vers notre environnement local. A noter:
+Quand on tape `python` ça pointe donc maintenant vers notre environnement local. A noter:
 le nom de l'environnement virtuel est ajouté au début de la ligne de commande.
 
 Pour désactiver cet environment virtuel (pour travailler sur un autre projet par exemple):
@@ -243,7 +243,7 @@ Pour y accéder il faut utiliser son navigateur (chrome ?) et aller sur http://l
 
 ## Data Management
 
-All data files are stored in the `data/` folder. These files **should not me comitted** to the
+All data files are stored in the `data/` folder. These files **should not me committed** to the
 repository. The module `fluotracker.io.files` provides convenient functions to load and save
 files from the folder.
 
