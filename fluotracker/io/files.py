@@ -7,6 +7,7 @@ import os
 
 import numpy as np
 import pandas as pd
+import imageio
 
 this_folder = os.path.dirname(__file__)
 DATA_FOLDER = os.path.abspath(os.path.join(this_folder, '../../data'))
@@ -68,10 +69,8 @@ def load_movie_frames(movie_relative_path):
     """
     movie_absolute_path = create_abspath(movie_relative_path)
     print("Loading movie from " + movie_absolute_path)
-
-    # TODO: implémenter la fonction qui utilise numpy pour lire le contenu du .tif
-    # pour l'instant on retourne un "faux" objet
-    return np.array([1, 2, 3])
+    frames = imageio.volread(movie_absolute_path)
+    return frames
 
 
 def _validate_dataframe_file_extension(absolute_path):
