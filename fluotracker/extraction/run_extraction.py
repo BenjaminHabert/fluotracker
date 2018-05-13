@@ -23,9 +23,18 @@ def run():
 
 def prepare_movie_folders():
     folder = files.create_abspath('raw/')
-    movies = _list_movies(folder)
+    movies = movies = [
+        {
+            'name': os.path.splitext(filename)[0],
+            'path': os.path.join(folder, filename)
+        }
+        for filename in os.listdir(folder)
+        if filename.endswith('.tif')
+    ]
     for movie in movies:
-        _copy_movie(movie)
+        new_path = files.create_abspath('movies/' + movie['name'] + '/movie.tif',
+                                        create_folders=True)
+        shutil.copy(movie['path'], new_path)
 
 
 def extract_tracks_from_movies():
@@ -44,30 +53,12 @@ def extract_tracks_from_movies():
 
 def extract_tracks_from_movie(folder, name):
     print('Extracting movie: ' + name)
-    # _convert_movie_to_frames(folder, name)
-    # _preprocess_frames(folder, name)
-    # _extract_tracks(folder, name)
-    # _filter_tracks(folder, name)
+    _convert_movie_to_frames(folder, name)
+    _preprocess_frames(folder, name)
+    _extract_tracks(folder, name)
+    _filter_tracks(folder, name)
     _rotate_tracks(folder, name)
     print('Extraction complete for movie: ' + name)
-
-
-def _list_movies(folder):
-    filelist = os.listdir(folder)
-    movies = [
-        {
-            'name': os.path.splitext(filename)[0],
-            'path': os.path.join(folder, filename)
-        }
-        for filename in filelist
-        if filename.endswith('.tif')
-    ]
-    return movies
-
-
-def _copy_movie(movie):
-    new_path = files.create_abspath('movies/' + movie['name'] + '/movie.tif', create_folders=True)
-    shutil.copy(movie['path'], new_path)
 
 
 def _convert_movie_to_frames(folder, name):

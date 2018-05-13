@@ -33,10 +33,6 @@ def remove_short_tracks(tracks, threshold_length=7):
         if distance > threshold_length:
             Ntraj += 1
             t_neurons = t_neurons.append(sub)
-            print('\n', Ntraj, 'trajectoires retenues\n')
+            print(str(Ntraj) + ' trajectoires retenues')
 
-    # plt.figure()
-    # plt.imshow(frames[0])
-    # tp.plot_traj(t_neurons)
-    # t_neurons.to_csv(filecsv, sep='\t')
     return t_neurons
