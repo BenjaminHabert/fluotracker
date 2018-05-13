@@ -44,9 +44,9 @@ def extract_tracks_from_frames(frames):
     t_neurons = pd.DataFrame()
 
     Ntraj = 0
-    for item in set(t.particle):
+    for item in set(tracks.particle):
         #print(item)
-        sub = t[t.particle==item] # selection of the item-th particle trajectory
+        sub = tracks[tracks.particle==item] # selection of the item-th particle trajectory
         distance = tp.motion.diagonal_size(sub)
         # distance is an estimation of the particle displacement if the displacement
         # is roughly linear
@@ -57,9 +57,9 @@ def extract_tracks_from_frames(frames):
 
             print('\n',Ntraj,'trajectoires retenues\n')
 
-    plt.figure()
-    plt.imshow(frames[0])
-    tp.plot_traj(t_neurons)
+    # plt.figure()
+    # plt.imshow(frames[0])
+    # tp.plot_traj(t_neurons)
     t_neurons.to_csv(filecsv, sep = '\t')
 
     return tracks

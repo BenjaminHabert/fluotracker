@@ -1,4 +1,5 @@
 from scipy import signal
+import numpy as np
 
 
 def remove_short_tracks(tracks, threshold_length=20):
@@ -96,7 +97,7 @@ def Filtering_frames(frames):
     LP2 = LowPass2() # low pass matrix
 
     for i in range(Nbframe):
-        print(i+"th frame filtered")
+        print(str(i) + "th frame filtered")
         Newframes[i] = Wavelet2(frames[i],LP1,LP2)
 
     return Newframes
