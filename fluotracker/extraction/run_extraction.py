@@ -2,13 +2,19 @@ import os
 import shutil
 
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+
 
 from fluotracker.io import files
 from fluotracker.extraction import (
     extract,
     filter,
     preprocessing,
+    plotting,
 )
+
+
 
 
 def run():
@@ -39,8 +45,8 @@ def extract_tracks_from_movies():
 
 def extract_tracks_from_movie(folder, name):
     print('Extracting movie: ' + name)
-    # _convert_movie_to_frames(folder)
-    # _preprocess_frames(folder)
+    _convert_movie_to_frames(folder, name)
+    _preprocess_frames(folder, name)
     # _extract_tracks(folder, name)
     # _filter_tracks(folder)
     print('Extraction complete for movie: ' + name)
@@ -64,23 +70,29 @@ def _copy_movie(movie):
     shutil.copy(movie['path'], new_path)
 
 
-def _convert_movie_to_frames(folder):
+def _convert_movie_to_frames(folder, name):
     path = os.path.join(folder, 'movie.tif')
 
     frames = files.load_movie_frames(path)
+    fig = plotting.plot_frames_from_movie(frames, name)
 
     outpath = os.path.join(folder, 'frames.npy')
     np.save(outpath, frames)
+    outpath = os.path.join(folder, 'frames.png')
+    fig.savefig(outpath)
 
 
-def _preprocess_frames(folder):
+def _preprocess_frames(folder, name):
     path = os.path.join(folder, 'frames.npy')
     frames = np.load(path)
 
     frames = preprocessing.apply_wavelet_filter(frames)
+    fig = plotting.plot_frames_from_movie(frames, name)
 
     outpath = os.path.join(folder, 'frames_preprocessed.npy')
     np.save(outpath, frames)
+    outpath = os.path.join(folder, 'frames_preprocessed.png')
+    fig.savefig(outpath)
 
 
 def _extract_tracks(folder, name):
