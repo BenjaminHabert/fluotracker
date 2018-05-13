@@ -44,10 +44,10 @@ def extract_tracks_from_movies():
 
 def extract_tracks_from_movie(folder, name):
     print('Extracting movie: ' + name)
-    _convert_movie_to_frames(folder, name)
-    _preprocess_frames(folder, name)
-    _extract_tracks(folder, name)
-    _filter_tracks(folder, name)
+    # _convert_movie_to_frames(folder, name)
+    # _preprocess_frames(folder, name)
+    # _extract_tracks(folder, name)
+    # _filter_tracks(folder, name)
     _rotate_tracks(folder, name)
     print('Extraction complete for movie: ' + name)
 

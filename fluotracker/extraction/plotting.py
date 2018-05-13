@@ -84,3 +84,20 @@ def plot_tracks_infos(tracks, name, frame=None):
     ax4.set_ylabel('median raw_mass')
 
     return fig
+
+
+def plot_particles_coordinates(tracks, x='x_rotated', y='y_rotated', name=''):
+    plt, sns = set_defaults()
+
+    xlims = [tracks[x].min(), tracks[x].max()]
+    ylims = [tracks[y].min(), tracks[y].max()]
+
+    grid = sns.FacetGrid(data=tracks, row='particle',
+                         size=2,
+                         aspect=(xlims[1] - xlims[0]) / (ylims[1] - ylims[0]),
+                         xlim=xlims, ylim=ylims, sharex=False, sharey=False)
+    grid.map(plt.plot, x, y)
+
+    grid.fig.suptitle(name, y=1.0)
+
+    return grid.fig
