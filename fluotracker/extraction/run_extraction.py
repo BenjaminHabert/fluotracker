@@ -48,7 +48,7 @@ def extract_tracks():
     # mais l'intérêt c'est qu'ensuite on peut ne réaliser qu'une seule étape sans
     # redémarrer le projet depuis le début.
     extracted = files.load_dataframe(output_filename)
-    filtered = filter.remove_short_tracks(extracted, threshold_length=20)
+    filtered = filter.remove_short_tracks(extracted)
     files.save_dataframe(filtered, 'filtered/movie8.csv')
 
 

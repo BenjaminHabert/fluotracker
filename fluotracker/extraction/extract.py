@@ -1,10 +1,9 @@
-import pandas as pd
 import trackpy as tp
 
-number = 411
-
-filep = "Diamants-"+str(number)+"_crop.tif"
-filecsv = "TrajectoirePyW-Diam"+str(number)+"_crop_minmass150.csv"
+# number = 411
+#
+# filep = "Diamants-"+str(number)+"_crop.tif"
+# filecsv = "TrajectoirePyW-Diam"+str(number)+"_crop_minmass150.csv"
 
 
 def extract_tracks_from_frames(frames):
@@ -35,25 +34,5 @@ def extract_tracks_from_frames(frames):
     # avec memory = 2, la trajectoire passe au dessus du stop en question : c'est ce qui se passe
     # en réalité si on regarde le film. Le pb (je crois) est lié au fait que link_df ne prédit pas
     # la prochaine position en fonction de la vitesse. Ca doit être possible mais comment ?
-
-    # t_neurons will contain the trajectories of interest
-    t_neurons = pd.DataFrame()
-
-    Ntraj = 0
-    for item in set(tracks.particle):
-        sub = tracks[tracks.particle == item]  # selection of the item-th particle trajectory
-        distance = tp.motion.diagonal_size(sub)
-        # distance is an estimation of the particle displacement if the displacement
-        # is roughly linear
-
-        if distance > 7:
-            Ntraj += 1
-            t_neurons = t_neurons.append(sub)
-            print('\n', Ntraj, 'trajectoires retenues\n')
-
-    # plt.figure()
-    # plt.imshow(frames[0])
-    # tp.plot_traj(t_neurons)
-    t_neurons.to_csv(filecsv, sep='\t')
 
     return tracks
