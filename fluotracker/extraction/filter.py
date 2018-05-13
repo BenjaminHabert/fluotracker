@@ -1,8 +1,8 @@
 from scipy import signal
 
 
-def remove_short_tracks(tracks, threshold_seconds=3):
-    """Filter les tracks qui font plus de X seconds.
+def remove_short_tracks(tracks, threshold_length=20):
+    """Filter les tracks qui font plus de 20 pixels.
 
     Parameters
     ----------
