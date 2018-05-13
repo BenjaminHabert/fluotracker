@@ -1,60 +1,110 @@
+import os
+import shutil
+
+import numpy as np
+
 from fluotracker.io import files
-from . import (extract, filter, preprocessing)
+from fluotracker.extraction import (
+    extract,
+    filter,
+    preprocessing,
+)
 
 
 def run():
-    """Run extraction of nanoparticle tracks from movies."""
-    pass
-    # List movies in data folder
-
-    # For each movie
-    #   - load the images
-    #   - extract particles positions as arrays
-    #   - save tracks as csv files
-    #   - (optional): save image with tracks overlay
-
-    # For each extracted tracks file
-    #   - load the tracks
-    #   - filter valid and invalid tracks
-    #   - save all valid tracks as one csv. columns: original file / partile ID / x (px) / y (px)
-    #   - (optional): save image with tracks overlay indicating valid / invalid choice (green / red)
+    prepare_movie_folders()
+    extract_tracks_from_movies()
 
 
-def extract_tracks():
-    movie_to_extract = "raw/movie8.tif"
+def prepare_movie_folders():
+    folder = files.create_abspath('raw/')
+    movies = _list_movies(folder)
+    for movie in movies:
+        _copy_movie(movie)
 
-    # Loading
-    print("Loading movie: " + movie_to_extract)
-    frames = files.load_movie_frames(movie_to_extract)
-    print("Movie loaded")
 
-    # preprocessing
-    print('First Step: Apply the "à trous" Wavelet transform to the frames')
+def extract_tracks_from_movies():
+    folder = files.create_abspath('movies/')
+    movies = [
+        {
+            'name': dirname,
+            'path': os.path.join(folder, dirname)
+        }
+        for dirname in os.listdir(folder)
+        if os.path.isdir(os.path.join(folder, dirname))
+    ]
+    for movie in movies:
+        extract_tracks_from_movie(movie['path'], movie['name'])
+
+
+def extract_tracks_from_movie(folder, name):
+    print('Extracting movie: ' + name)
+    # _convert_movie_to_frames(folder)
+    # _preprocess_frames(folder)
+    # _extract_tracks(folder, name)
+    # _filter_tracks(folder)
+    print('Extraction complete for movie: ' + name)
+
+
+def _list_movies(folder):
+    filelist = os.listdir(folder)
+    movies = [
+        {
+            'name': os.path.splitext(filename)[0],
+            'path': os.path.join(folder, filename)
+        }
+        for filename in filelist
+        if filename.endswith('.tif')
+    ]
+    return movies
+
+
+def _copy_movie(movie):
+    new_path = files.create_abspath('movies/' + movie['name'] + '/movie.tif', create_folders=True)
+    shutil.copy(movie['path'], new_path)
+
+
+def _convert_movie_to_frames(folder):
+    path = os.path.join(folder, 'movie.tif')
+
+    frames = files.load_movie_frames(path)
+
+    outpath = os.path.join(folder, 'frames.npy')
+    np.save(outpath, frames)
+
+
+def _preprocess_frames(folder):
+    path = os.path.join(folder, 'frames.npy')
+    frames = np.load(path)
+
     frames = preprocessing.apply_wavelet_filter(frames)
 
-    # Extracting
+    outpath = os.path.join(folder, 'frames_preprocessed.npy')
+    np.save(outpath, frames)
+
+
+def _extract_tracks(folder, name):
+    print('Extracting tracks from frames')
+    path = os.path.join(folder, 'frames_preprocessed.npy')
+    frames = np.load(path)
+
     tracks = extract.extract_tracks_from_frames(frames)
-    tracks['movie'] = 'movie8'
-    print('Done extracting from movie. tracks is like this:')
-    print(tracks.head())
+    tracks['movie'] = name
 
-    # Saving result
-    output_filename = "extracted/movie8.csv"
-    print("Saving tracks to file: " + output_filename)
-    files.save_dataframe(tracks, output_filename)
+    outpath = os.path.join(folder, 'tracks.csv')
+    files.save_dataframe(tracks, outpath)
 
-    # Applying filters
-    # Le fait de sauvegarder puis charger les données peut paraître un peu idiot
-    # mais l'intérêt c'est qu'ensuite on peut ne réaliser qu'une seule étape sans
-    # redémarrer le projet depuis le début.
-    extracted = files.load_dataframe(output_filename)
-    filtered = filter.remove_short_tracks(extracted)
-    files.save_dataframe(filtered, 'filtered/movie8.csv')
+
+def _filter_tracks(folder):
+    print('Keeping only long tracks')
+    path = os.path.join(folder, 'tracks.csv')
+    tracks = files.load_dataframe(path)
+
+    filtered = filter.remove_short_tracks(tracks)
+
+    outpath = os.path.join(folder, 'tracks_filtered.csv')
+    files.save_dataframe(filtered, outpath)
 
 
 if __name__ == "__main__":
-    print('Lauching main script to extract particles tracks from movies.')
-    extract_tracks()
-    print('Main extraction script completed')
-    print('Content of data/ is now like this:')
-    files.inventory()
+    run()

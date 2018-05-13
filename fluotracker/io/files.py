@@ -31,7 +31,7 @@ def inventory():
             print(os.path.join(local_root, file))
 
 
-def create_abspath(relative_path):
+def create_abspath(relative_path, create_folders=True):
     """Return absolute path in the data/ folder."""
     if os.path.isabs(relative_path):
         absolute_path = relative_path
@@ -43,6 +43,8 @@ def create_abspath(relative_path):
             print('Does your relative path star with "/" ?')
     else:
         absolute_path = os.path.join(DATA_FOLDER, relative_path)
+    if create_abspath:
+        os.makedirs(os.path.dirname(absolute_path), exist_ok=True)
     return absolute_path
 
 
@@ -87,11 +89,10 @@ def _validate_dataframe_file_extension(absolute_path):
 
 def save_dataframe(df, relative_path):
     """Save pandas dataframe as csv in the `data/` folder."""
-    absolute_path = create_abspath(relative_path)
+    absolute_path = create_abspath(relative_path, create_folders=True)
     extension = _validate_dataframe_file_extension(absolute_path)
 
     print('Saving dataframe to: ' + absolute_path)
-    os.makedirs(os.path.dirname(absolute_path), exist_ok=True)
 
     if extension == '.csv':
         df.to_csv(absolute_path, index=False, sep=',')
