@@ -1,5 +1,4 @@
 import pandas as pd
-import filter
 import trackpy as tp
 
 number = 411
@@ -26,12 +25,8 @@ def extract_tracks_from_frames(frames):
     """
     Nbframe = frames.shape[0]
     print('[extract.py] Running extraction from tracks')
-
-    print('First Step: Apply the "à trous" Wavelet transform to the frames')
-    NewFrames = filter.Filtering_frames(frames)
-
     print('Second Step: Localizaton of the nanoparticles in each frame')
-    f = tp.batch(NewFrames[:Nbframe], 7, minmass=150, preprocess=False)
+    f = tp.batch(frames[:Nbframe], 7, minmass=150, preprocess=False)
 
     print('Third Step: Computation of the trajectories')
     tracks = tp.link_df(f, search_range=5, memory=7)
@@ -54,7 +49,6 @@ def extract_tracks_from_frames(frames):
         if distance > 7:
             Ntraj += 1
             t_neurons = t_neurons.append(sub)
-
             print('\n', Ntraj, 'trajectoires retenues\n')
 
     # plt.figure()

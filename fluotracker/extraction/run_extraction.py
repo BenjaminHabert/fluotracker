@@ -1,7 +1,5 @@
 from fluotracker.io import files
-
-import extract
-import filter
+from . import (extract, filter, preprocessing)
 
 
 def run():
@@ -29,6 +27,10 @@ def extract_tracks():
     print("Loading movie: " + movie_to_extract)
     frames = files.load_movie_frames(movie_to_extract)
     print("Movie loaded")
+
+    # preprocessing
+    print('First Step: Apply the "à trous" Wavelet transform to the frames')
+    frames = preprocessing.apply_wavelet_filter(frames)
 
     # Extracting
     tracks = extract.extract_tracks_from_frames(frames)
