@@ -5,7 +5,6 @@ In particular we add functions to load frames from a .tif movie
 """
 import os
 
-import numpy as np
 import pandas as pd
 import imageio
 

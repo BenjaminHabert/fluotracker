@@ -29,7 +29,6 @@ def extract_tracks():
     print("Loading movie: " + movie_to_extract)
     frames = files.load_movie_frames(movie_to_extract)
     print("Movie loaded")
-    #print(frames)
 
     # Extracting
     tracks = extract.extract_tracks_from_frames(frames)

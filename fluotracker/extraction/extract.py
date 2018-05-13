@@ -7,6 +7,7 @@ number = 411
 filep = "Diamants-"+str(number)+"_crop.tif"
 filecsv = "TrajectoirePyW-Diam"+str(number)+"_crop_minmass150.csv"
 
+
 def extract_tracks_from_frames(frames):
     """Extract tracks as dataframe from movie frames.
 
@@ -30,7 +31,7 @@ def extract_tracks_from_frames(frames):
     NewFrames = filter.Filtering_frames(frames)
 
     print('Second Step: Localizaton of the nanoparticles in each frame')
-    f = tp.batch(NewFrames[:Nbframe], 7, minmass=150,preprocess=False);
+    f = tp.batch(NewFrames[:Nbframe], 7, minmass=150, preprocess=False)
 
     print('Third Step: Computation of the trajectories')
     tracks = tp.link_df(f, search_range=5, memory=7)
@@ -45,21 +46,20 @@ def extract_tracks_from_frames(frames):
 
     Ntraj = 0
     for item in set(tracks.particle):
-        #print(item)
-        sub = tracks[tracks.particle==item] # selection of the item-th particle trajectory
+        sub = tracks[tracks.particle == item]  # selection of the item-th particle trajectory
         distance = tp.motion.diagonal_size(sub)
         # distance is an estimation of the particle displacement if the displacement
         # is roughly linear
 
-        if distance>7:
+        if distance > 7:
             Ntraj += 1
             t_neurons = t_neurons.append(sub)
 
-            print('\n',Ntraj,'trajectoires retenues\n')
+            print('\n', Ntraj, 'trajectoires retenues\n')
 
     # plt.figure()
     # plt.imshow(frames[0])
     # tp.plot_traj(t_neurons)
-    t_neurons.to_csv(filecsv, sep = '\t')
+    t_neurons.to_csv(filecsv, sep='\t')
 
     return tracks
