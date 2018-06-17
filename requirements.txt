@@ -4,3 +4,4 @@ trackpy
 pims
 imageio
 shapely
+seaborn
