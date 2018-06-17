@@ -1,3 +1,37 @@
+"""
+Lance le processus d'extraction sur l'ensemble des films.
+
+Les étapes sont les suivantes:
+
+ - récupère tous les fichiers .tif qui sont dans le dossier data/raw/
+
+ - pour chacun de ces films, on créé un nouveau répertoire dans data/movies
+   et on copie dedans le film d'origine. On obtient par exemple:
+   - data/movies/movie8/movie.tif
+   - data/movies/nanodiament_super_brillant/movie.tif
+   (REMARQUE: on a donc plusieurs sauvegardes du même fichier; peut être à modifier si les films
+    sont trop volumineux).
+
+ - Pour chaque dossier de data/movies/ (et donc pour chaque film) on fait l'extraction
+   qui est décrite par la fonction extract_tracks_from_movie(folder, name):
+   - conversion en frames Numpy
+   - applique un filte en ondelettes
+   - récupère les tracks avec trackpy
+   - filtrer les tracks selon certains critères (longueur..)
+   - appliquer une rotation à toutes les trajectoires filtrées pour que les particules
+     se déplacent vers la droite
+     
+ - Au cours de ce processus, plusieurs fichiers intermédiaires sont générés (array Numpy, images,
+   fichiers csv avec les trajectoires). Pour un film, toutes ces données sont enregistrées dans
+   /data/movies/nom_du_film/
+   
+Pour lancer le code:
+
+$ source activate.sh
+$ python fluotracker/extraction/run_extraction.py
+"""
+
+
 import os
 import shutil
 
