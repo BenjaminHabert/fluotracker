@@ -28,6 +28,14 @@ Nous recommandons d'utiliser un environnement virtuel local. La bonne pratique: 
 environment virtuel. De cette manière tout le monde utilise la même version de python
 et les mêmes libraires.
 
+Version synthétique:
+
+```
+$ make install
+```
+
+Pour la version détaillée (ou en cas d'erreur): continuer à lire le guide.
+
 ### 2.1 préambule: avoir la bonne version de python sur sa machine
 
 On veut avoir python3 (version > 3.3) sans anaconda pour se simplifier la vie.

@@ -1,7 +1,7 @@
 extract:
 	python fluotracker/extraction/run_extraction.py
 
-install:
+install: venv-fluo requirements.txt
 	source activate.sh && \
 	pip install --upgrade pip && \
 	pip install -r requirements.txt
@@ -9,3 +9,6 @@ install:
 notebook:
 	source activate.sh && \
 	jupyter notebook
+
+venv-fluo:
+	python3 -m venv venv-fluo
